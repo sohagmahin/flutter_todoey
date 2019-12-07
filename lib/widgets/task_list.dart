@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_todoey/models/task_data.dart';
 import 'task_tile.dart';
@@ -17,8 +18,8 @@ class _TaskListState extends State<TaskList> {
       decoration: BoxDecoration(
           shape: BoxShape.rectangle,
           borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(60.0),
-              //topRight: Radius.circular(30.0)
+            topLeft: Radius.circular(50.0),
+            //topRight: Radius.circular(30.0)
           ),
           color: Colors.white),
       child: Consumer<TaskData>(
@@ -27,16 +28,39 @@ class _TaskListState extends State<TaskList> {
               itemCount: taskData.taskCount,
               itemBuilder: (context, index) {
                 Task task = taskData.taskList[index];
-                return TaskTile(
-                  taskTitle: task.name,
-                  isChecked: task.isDone,
-                  checkBoxCallBack: (_) {
-                    taskData.updateTask(task);
+                return Dismissible(
+                  direction: DismissDirection.endToStart,
+                  movementDuration: Duration(milliseconds: 800),
+                  background: Container(
+                    margin: const EdgeInsets.symmetric(vertical: 5.0),
+                    padding: EdgeInsets.only(right: 10.0),
+                    alignment: AlignmentDirectional.centerEnd,
+                    decoration: BoxDecoration(
+                        shape: BoxShape.rectangle,
+                        borderRadius: BorderRadius.circular(10.0),
+                        color: Colors.redAccent),
+                    child: Icon(Icons.delete),
+                  ),
+                  key: Key(task.name),
+                  onDismissed: (DismissDirection direction) {
+                    if (direction == DismissDirection.endToStart) {
+                      taskData.deleteTask(task);
+                      print('end to start');
+                    }
                   },
-                  longPressCallback: (){
-                    taskData.deleteTask(task);
-                  },
-                  taskColor: task.color,
+                  child: TaskTile(
+                    taskTitle: task.name,
+                    isChecked: task.isDone,
+
+                    checkBoxCallBack: (_) {
+                      taskData.updateTask(task);
+                    },
+                    //For onTap
+                    checkBoxCallBackTwo: () {
+                      taskData.updateTask(task);
+                    },
+                    taskColor: task.color,
+                  ),
                 );
               });
         },
