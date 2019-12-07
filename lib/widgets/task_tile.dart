@@ -3,15 +3,19 @@ import 'package:flutter/material.dart';
 class TaskTile extends StatelessWidget {
   final String taskTitle;
   final bool isChecked;
+
+  //Using two different checkBoxCallBack method but worked are both same.
+  //Coz i used for avoiding null error of ListTile checkbox.
+  //ListTile checkbox does't support null Function.
   final Function checkBoxCallBack;
-  final Function longPressCallback;
+  final Function checkBoxCallBackTwo;
   final Color taskColor;
 
   TaskTile(
       {this.taskTitle,
       this.isChecked,
       this.checkBoxCallBack,
-      this.longPressCallback,
+      this.checkBoxCallBackTwo,
       this.taskColor});
 
   @override
@@ -21,9 +25,9 @@ class TaskTile extends StatelessWidget {
       decoration: BoxDecoration(
           shape: BoxShape.rectangle,
           borderRadius: BorderRadius.circular(10.0),
-          color: taskColor == null? Colors.lightBlueAccent : taskColor),
+          color: taskColor == null ? Colors.lightBlueAccent : taskColor),
       child: ListTile(
-        onLongPress: longPressCallback,
+        onTap: checkBoxCallBackTwo,
         title: Text(
           taskTitle,
           style: TextStyle(
@@ -35,7 +39,9 @@ class TaskTile extends StatelessWidget {
         trailing: Checkbox(
           activeColor: Colors.lightBlueAccent,
           value: isChecked,
-          onChanged: checkBoxCallBack,
+//          No need this function because we attached onTap Function
+//          on whole ListTile to check the checkbox.
+//          onChanged: checkBoxCallBack,
         ),
       ),
     );
