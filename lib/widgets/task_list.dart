@@ -10,7 +10,18 @@ class TaskList extends StatefulWidget {
 }
 
 class _TaskListState extends State<TaskList> {
-  Decoration deleteDecoration() {
+  Decoration _buildBoxDecoration() {
+    return BoxDecoration(
+      shape: BoxShape.rectangle,
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(50.0),
+        //topRight: Radius.circular(30.0)
+      ),
+      color: Colors.white,
+    );
+  }
+
+  Decoration _buildDeleteDecoration() {
     return BoxDecoration(
       shape: BoxShape.rectangle,
       borderRadius: BorderRadius.circular(10.0),
@@ -18,51 +29,53 @@ class _TaskListState extends State<TaskList> {
     );
   }
 
+  Widget _buildBackgroundWidget() {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 5.0),
+      padding: EdgeInsets.only(right: 10.0),
+      alignment: AlignmentDirectional.centerEnd,
+      decoration: _buildDeleteDecoration(),
+      child: Icon(Icons.delete),
+    );
+  }
+
+  Widget _buildDismissibleWidget(TaskData taskData, int index) {
+    Task task = taskData.taskList[index];
+    return Dismissible(
+      direction: DismissDirection.endToStart,
+      movementDuration: Duration(milliseconds: 800),
+      background: _buildBackgroundWidget(),
+      key: Key(task.name),
+      onDismissed: (DismissDirection direction) {
+        if (direction == DismissDirection.endToStart) {
+          taskData.deleteTask(task);
+          print('end to start');
+        }
+      },
+      child: TaskTile(
+        taskTitle: task.name,
+        isChecked: task.isDone,
+
+        //For onTap
+        checkBoxCallBack: () {
+          taskData.updateTask(task);
+        },
+        taskColor: task.color,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20.0),
-      decoration: BoxDecoration(
-          shape: BoxShape.rectangle,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(50.0),
-            //topRight: Radius.circular(30.0)
-          ),
-          color: Colors.white),
+      decoration: _buildBoxDecoration(),
       child: Consumer<TaskData>(
         builder: (context, taskData, child) {
           return ListView.builder(
               itemCount: taskData.taskCount,
               itemBuilder: (context, index) {
-                Task task = taskData.taskList[index];
-                return Dismissible(
-                  direction: DismissDirection.endToStart,
-                  movementDuration: Duration(milliseconds: 800),
-                  background: Container(
-                    margin: const EdgeInsets.symmetric(vertical: 5.0),
-                    padding: EdgeInsets.only(right: 10.0),
-                    alignment: AlignmentDirectional.centerEnd,
-                    decoration: deleteDecoration(),
-                    child: Icon(Icons.delete),
-                  ),
-                  key: Key(task.name),
-                  onDismissed: (DismissDirection direction) {
-                    if (direction == DismissDirection.endToStart) {
-                      taskData.deleteTask(task);
-                      print('end to start');
-                    }
-                  },
-                  child: TaskTile(
-                    taskTitle: task.name,
-                    isChecked: task.isDone,
-
-                    //For onTap
-                    checkBoxCallBack: () {
-                      taskData.updateTask(task);
-                    },
-                    taskColor: task.color,
-                  ),
-                );
+                return _buildDismissibleWidget(taskData, index);
               });
         },
       ),

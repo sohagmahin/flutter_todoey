@@ -102,7 +102,7 @@ class _AddTaskState extends State<AddTask> {
               ),
               color: Colors.lightBlueAccent,
               onPressed: () {
-                Task newTask = Task(name: newTaskTitle, color: currentColor);
+                Task newTask = Task(id:DateTime.now().toString(),name: newTaskTitle, color: currentColor);
                 Provider.of<TaskData>(context).addTask(newTask: newTask);
                 Navigator.pop(context);
                 print(newTaskTitle);
