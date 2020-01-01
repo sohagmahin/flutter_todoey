@@ -46,6 +46,14 @@ class _AddTaskState extends State<AddTask> {
     );
   }
 
+  void _submitForm() {
+    Task newTask = Task(
+        id: DateTime.now().toString(), name: newTaskTitle, color: currentColor);
+    Provider.of<TaskData>(context).addTask(newTask: newTask);
+    Navigator.pop(context);
+    print(newTaskTitle);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -101,12 +109,7 @@ class _AddTaskState extends State<AddTask> {
                 style: TextStyle(color: Colors.white, fontSize: 20.0),
               ),
               color: Colors.lightBlueAccent,
-              onPressed: () {
-                Task newTask = Task(id:DateTime.now().toString(),name: newTaskTitle, color: currentColor);
-                Provider.of<TaskData>(context).addTask(newTask: newTask);
-                Navigator.pop(context);
-                print(newTaskTitle);
-              },
+              onPressed: _submitForm,
             ),
           ],
         ),
