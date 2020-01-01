@@ -1,6 +1,5 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_todoey/models/task_data.dart';
+import 'package:flutter_todoey/provider/task_data.dart';
 import 'task_tile.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_todoey/models/task.dart';
@@ -11,6 +10,14 @@ class TaskList extends StatefulWidget {
 }
 
 class _TaskListState extends State<TaskList> {
+  Decoration deleteDecoration() {
+    return BoxDecoration(
+      shape: BoxShape.rectangle,
+      borderRadius: BorderRadius.circular(10.0),
+      color: Colors.redAccent,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -35,10 +42,7 @@ class _TaskListState extends State<TaskList> {
                     margin: const EdgeInsets.symmetric(vertical: 5.0),
                     padding: EdgeInsets.only(right: 10.0),
                     alignment: AlignmentDirectional.centerEnd,
-                    decoration: BoxDecoration(
-                        shape: BoxShape.rectangle,
-                        borderRadius: BorderRadius.circular(10.0),
-                        color: Colors.redAccent),
+                    decoration: deleteDecoration(),
                     child: Icon(Icons.delete),
                   ),
                   key: Key(task.name),
@@ -52,11 +56,8 @@ class _TaskListState extends State<TaskList> {
                     taskTitle: task.name,
                     isChecked: task.isDone,
 
-                    checkBoxCallBack: (_) {
-                      taskData.updateTask(task);
-                    },
                     //For onTap
-                    checkBoxCallBackTwo: () {
+                    checkBoxCallBack: () {
                       taskData.updateTask(task);
                     },
                     taskColor: task.color,

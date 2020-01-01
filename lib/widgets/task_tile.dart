@@ -7,15 +7,14 @@ class TaskTile extends StatelessWidget {
   //Using two different checkBoxCallBack method but worked are both same.
   //Coz i used for avoiding null error of ListTile checkbox.
   //ListTile checkbox does't support null Function.
+  //final Function checkBoxCallBack;
   final Function checkBoxCallBack;
-  final Function checkBoxCallBackTwo;
   final Color taskColor;
 
   TaskTile(
       {this.taskTitle,
       this.isChecked,
       this.checkBoxCallBack,
-      this.checkBoxCallBackTwo,
       this.taskColor});
 
   @override
@@ -27,7 +26,7 @@ class TaskTile extends StatelessWidget {
           borderRadius: BorderRadius.circular(10.0),
           color: taskColor == null ? Colors.lightBlueAccent : taskColor),
       child: ListTile(
-        onTap: checkBoxCallBackTwo,
+        onTap: checkBoxCallBack,
         title: Text(
           taskTitle,
           style: TextStyle(
@@ -41,7 +40,8 @@ class TaskTile extends StatelessWidget {
           value: isChecked,
 //          No need this function because we attached onTap Function
 //          on whole ListTile to check the checkbox.
-//          onChanged: checkBoxCallBack,
+        //  onChanged: (isChecked){
+        //  },
         ),
       ),
     );

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_todoey/models/task_data.dart';
+import 'package:flutter_todoey/provider/task_data.dart';
 import 'package:flutter_todoey/models/task.dart';
 import 'package:flutter_colorpicker/block_picker.dart';
 
