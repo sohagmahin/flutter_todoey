@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_todoey/provider/task_data.dart';
+import 'package:flutter_todoey/provider/task_provider.dart';
 import 'task_tile.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_todoey/models/task.dart';
 
 class TaskList extends StatefulWidget {
   @override
-  _TaskListState createState() => _TaskListState();
+  State<StatefulWidget> createState() {
+    return _TaskListState();
+  }
 }
 
 class _TaskListState extends State<TaskList> {
@@ -39,7 +41,7 @@ class _TaskListState extends State<TaskList> {
     );
   }
 
-  Widget _buildDismissibleWidget(TaskData taskData, int index) {
+  Widget _buildDismissibleWidget(TaskProvider taskData, int index) {
     Task task = taskData.taskList[index];
     return Dismissible(
       direction: DismissDirection.endToStart,
@@ -66,19 +68,34 @@ class _TaskListState extends State<TaskList> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    Provider.of<TaskProvider>(context, listen: false).fetchAndSetData();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20.0),
-      decoration: _buildBoxDecoration(),
-      child: Consumer<TaskData>(
-        builder: (context, taskData, child) {
-          return ListView.builder(
-              itemCount: taskData.taskCount,
-              itemBuilder: (context, index) {
-                return _buildDismissibleWidget(taskData, index);
-              });
-        },
-      ),
-    );
+        padding: EdgeInsets.symmetric(horizontal: 20.0),
+        decoration: _buildBoxDecoration(),
+        child: Consumer<TaskProvider>(
+          child: Center(
+            child: Text('No item founds!'),
+          ),
+          builder: (context, taskData, ch) {
+            return taskData.isLoading
+                ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : taskData.taskList.length == 0
+                    ? ch
+                    : ListView.builder(
+                        itemCount: taskData.taskCount,
+                        itemBuilder: (context, index) {
+                          return _buildDismissibleWidget(taskData, index);
+                        },
+                      );
+          },
+        ));
   }
 }

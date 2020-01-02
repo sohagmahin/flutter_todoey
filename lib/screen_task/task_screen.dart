@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_todoey/widgets/task_list.dart';
 import 'package:flutter_todoey/screen_task/addtask_screen.dart';
-import 'package:flutter_todoey/provider/task_data.dart';
+import 'package:flutter_todoey/provider/task_provider.dart';
 import 'package:provider/provider.dart';
 
 class TaskScreen extends StatelessWidget {
@@ -17,8 +17,7 @@ class TaskScreen extends StatelessWidget {
         ),
         onPressed: () => showModalBottomSheet(
           context: context,
-          builder: (context) => AddTask(
-          ),
+          builder: (context) => AddTask(),
         ),
       ),
       body: Column(
@@ -50,7 +49,7 @@ class TaskScreen extends StatelessWidget {
                       fontWeight: FontWeight.w700),
                 ),
                 Text(
-                  '${Provider.of<TaskData>(context).taskCount} tasks',
+                  '${Provider.of<TaskProvider>(context).taskCount} tasks',
                   style: TextStyle(
                     fontSize: 20.0,
                     color: Colors.white,

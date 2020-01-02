@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_todoey/provider/task_data.dart';
+import 'package:flutter_todoey/provider/task_provider.dart';
 import 'package:flutter_todoey/models/task.dart';
 import 'package:flutter_colorpicker/block_picker.dart';
 
@@ -49,7 +49,7 @@ class _AddTaskState extends State<AddTask> {
   void _submitForm() {
     Task newTask = Task(
         id: DateTime.now().toString(), name: newTaskTitle, color: currentColor);
-    Provider.of<TaskData>(context).addTask(newTask: newTask);
+    Provider.of<TaskProvider>(context).addTask(newTask: newTask);
     Navigator.pop(context);
     print(newTaskTitle);
   }
