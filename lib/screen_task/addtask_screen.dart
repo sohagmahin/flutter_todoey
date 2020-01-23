@@ -47,11 +47,13 @@ class _AddTaskState extends State<AddTask> {
   }
 
   void _submitForm() {
+    if(newTaskTitle == null)
+      return;
     Task newTask = Task(
         id: DateTime.now().toString(), name: newTaskTitle, color: currentColor);
-    Provider.of<TaskProvider>(context).addTask(newTask: newTask);
-    Navigator.pop(context);
-    print(newTaskTitle);
+      Provider.of<TaskProvider>(context).addTask(newTask: newTask);
+      Navigator.pop(context);
+      print(newTaskTitle);
   }
 
   @override

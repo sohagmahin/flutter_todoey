@@ -1,4 +1,3 @@
-import 'package:flutter_todoey/models/task.dart';
 import 'package:sqflite/sqflite.dart' as sql;
 import 'package:path/path.dart' as path;
 
