@@ -27,6 +27,7 @@ dependencies:
   flutter_colorpicker: ^0.2.6
   path: ^1.6.4
   sqflite: ^1.2.0
+  shared_preferences: ^0.5.6+1
 
 dev_dependencies:
   flutter_test:

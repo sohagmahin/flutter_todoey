@@ -48,12 +48,24 @@ class TaskScreen extends StatelessWidget {
                       color: Colors.white,
                       fontWeight: FontWeight.w700),
                 ),
-                Text(
-                  '${Provider.of<TaskProvider>(context).taskCount} tasks',
-                  style: TextStyle(
-                    fontSize: 20.0,
-                    color: Colors.white,
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                      '${Provider.of<TaskProvider>(context).taskCount} tasks',
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Text(
+                      'Remain: ${Provider.of<TaskProvider>(context).remainCount}',
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
                 ),
                 SizedBox(
                   height: 10.0,

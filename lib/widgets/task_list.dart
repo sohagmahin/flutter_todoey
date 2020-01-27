@@ -71,6 +71,7 @@ class _TaskListState extends State<TaskList> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     Provider.of<TaskProvider>(context, listen: false).fetchAndSetData();
+    Provider.of<TaskProvider>(context,listen: false).retrieveRemainsCount();
   }
 
   @override
