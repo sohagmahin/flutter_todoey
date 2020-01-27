@@ -14,6 +14,7 @@ class TaskList extends StatefulWidget {
 class _TaskListState extends State<TaskList> {
   Decoration _buildBoxDecoration() {
     return BoxDecoration(
+      boxShadow: [BoxShadow(color: Colors.black54,blurRadius: 2,spreadRadius: 7,offset: Offset(5,1))],
       shape: BoxShape.rectangle,
       borderRadius: BorderRadius.only(
         topLeft: Radius.circular(50.0),
@@ -76,7 +77,8 @@ class _TaskListState extends State<TaskList> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.symmetric(horizontal: 20.0),
+
+        padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 20.0),
         decoration: _buildBoxDecoration(),
         child: Consumer<TaskProvider>(
           child: Center(

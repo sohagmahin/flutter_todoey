@@ -20,8 +20,9 @@ class TaskTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 5.0),
+      margin: const EdgeInsets.symmetric(vertical: 5.0,horizontal: 6.0),
       decoration: BoxDecoration(
+        boxShadow: [BoxShadow(color: Colors.black54,blurRadius: 2,spreadRadius: 1,offset: Offset(2,2),)],
           shape: BoxShape.rectangle,
           borderRadius: BorderRadius.circular(10.0),
           color: taskColor == null ? Colors.lightBlueAccent : taskColor),
