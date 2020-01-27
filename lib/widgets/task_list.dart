@@ -68,10 +68,15 @@ class _TaskListState extends State<TaskList> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    Provider.of<TaskProvider>(context, listen: false).initialCall();
+  }
+
+  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    Provider.of<TaskProvider>(context, listen: false).fetchAndSetData();
-    Provider.of<TaskProvider>(context,listen: false).retrieveRemainsCount();
+
   }
 
   @override

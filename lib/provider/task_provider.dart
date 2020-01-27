@@ -14,6 +14,10 @@ class TaskProvider extends ChangeNotifier {
   int get taskCount => _taskList.length;
   int get remainCount => _remainCount;
 
+  void initialCall(){
+    retrieveRemainsCount();
+    fetchAndSetData();
+  }
   void retrieveRemainsCount() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     if (pref.getInt('remainsCount') != null) {
