@@ -8,9 +8,11 @@ class TaskProvider extends ChangeNotifier {
   List<Task> _taskList = [
   ];
   bool _loadingStatus = true;
-  bool get isLoading{
-    return _loadingStatus;
-  }
+
+
+  bool get isLoading=>_loadingStatus;
+  int get taskCount =>_taskList.length;
+
 // Why we use UnmodifiableListView because of turn off the write permission.
 // Other reason when we rewrite the code somehow we can write but it not need.
 // So it dangerous.
@@ -27,10 +29,6 @@ class TaskProvider extends ChangeNotifier {
       'isDone': newTask.isDone,
       'color': newTask.color.value
     });
-  }
-
-  int get taskCount {
-    return _taskList.length;
   }
 
   void updateTask(Task task) {
