@@ -74,12 +74,6 @@ class _TaskListState extends State<TaskList> {
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Container(
         padding: EdgeInsets.symmetric(horizontal: 20.0),
