@@ -34,7 +34,10 @@ class _AddTaskState extends State<AddTask> {
           ),
           actions: <Widget>[
             FlatButton(
-              child: const Text('Got it'),
+              child: const Text(
+                'Got it',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
               onPressed: () {
                 setState(() => currentColor = pickerColor);
                 Navigator.of(context).pop();

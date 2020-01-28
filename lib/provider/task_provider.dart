@@ -107,7 +107,8 @@ mixin ThemeProvider on TaskProvider {
         accentColor: Colors.white30,
         backgroundColor: Colors.white12,
         buttonColor: Colors.grey,
-        splashColor: Colors.white30);
+        splashColor: Colors.white30,
+    );
   }
 
   ThemeData light() {

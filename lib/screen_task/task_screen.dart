@@ -3,33 +3,14 @@ import 'package:flutter_todoey/widgets/task_list.dart';
 import 'package:flutter_todoey/screen_task/addtask_screen.dart';
 import 'package:flutter_todoey/provider/main.dart';
 import 'package:provider/provider.dart';
+import '../widgets/my_drawer.dart';
 
 class TaskScreen extends StatelessWidget {
-  Drawer drawer(BuildContext context) {
-    return Drawer(
-        child: SafeArea(
-      child: Column(
-        children: <Widget>[
-          Consumer<MainModel>(
-            builder: (context, mainModel, ch) {
-              return SwitchListTile(
-                title: Text('Dark Mode'),
-                value: mainModel.isDarkTheme,
-                onChanged: (value) {
-                  mainModel.toggleTheme();
-                },
-              );
-            },
-          ),
-        ],
-      ),
-    ));
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: drawer(context),
+      drawer: MyDrawer(),
       backgroundColor: Theme.of(context).primaryColor,
       floatingActionButton: FloatingActionButton(
         backgroundColor: Theme.of(context).primaryColor,
