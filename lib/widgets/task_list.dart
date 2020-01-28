@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_todoey/provider/task_provider.dart';
+import 'package:flutter_todoey/provider/main.dart';
 import 'task_tile.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_todoey/models/task.dart';
@@ -20,7 +20,7 @@ class _TaskListState extends State<TaskList> {
         topLeft: Radius.circular(50.0),
         //topRight: Radius.circular(30.0)
       ),
-      color: Colors.white,
+      color: Theme.of(context).backgroundColor,
     );
   }
 
@@ -42,7 +42,7 @@ class _TaskListState extends State<TaskList> {
     );
   }
 
-  Widget _buildDismissibleWidget(TaskProvider taskData, int index) {
+  Widget _buildDismissibleWidget(MainModel taskData, int index) {
     Task task = taskData.taskList[index];
     return Dismissible(
       direction: DismissDirection.endToStart,
@@ -71,7 +71,8 @@ class _TaskListState extends State<TaskList> {
   @override
   void initState() {
     super.initState();
-    Provider.of<TaskProvider>(context, listen: false).initialCall();
+    Provider.of<MainModel>(context,listen: false).themeDataLoadFromPref();
+    Provider.of<MainModel>(context, listen: false).initialCall();
   }
 
   @override
@@ -80,7 +81,7 @@ class _TaskListState extends State<TaskList> {
 
         padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 20.0),
         decoration: _buildBoxDecoration(),
-        child: Consumer<TaskProvider>(
+        child: Consumer<MainModel>(
           child: Center(
             child: Text('No item founds!'),
           ),

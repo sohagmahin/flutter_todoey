@@ -1,20 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_todoey/widgets/task_list.dart';
 import 'package:flutter_todoey/screen_task/addtask_screen.dart';
-import 'package:flutter_todoey/provider/task_provider.dart';
+import 'package:flutter_todoey/provider/main.dart';
 import 'package:provider/provider.dart';
 
 class TaskScreen extends StatelessWidget {
+  Drawer drawer(BuildContext context) {
+    return Drawer(
+        child: SafeArea(
+      child: Column(
+        children: <Widget>[
+          Consumer<MainModel>(
+            builder: (context, mainModel, ch) {
+              return SwitchListTile(
+                title: Text('Dark Mode'),
+                value: mainModel.isDarkTheme,
+                onChanged: (value) {
+                  mainModel.toggleTheme();
+                },
+              );
+            },
+          ),
+        ],
+      ),
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.indigo,
+      drawer: drawer(context),
+      backgroundColor: Theme.of(context).primaryColor,
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.indigoAccent,
-        splashColor: Colors.black54,
+        backgroundColor: Theme.of(context).primaryColor,
+        splashColor: Theme.of(context).splashColor,
         child: Icon(
           Icons.add,
           size: 35.0,
+          color: Colors.white,
         ),
         onPressed: () => showModalBottomSheet(
           context: context,
@@ -30,28 +53,7 @@ class TaskScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black54,
-                        blurRadius: 2,
-                        spreadRadius: 5,
-                        offset: Offset(0.5,1)
-                      )
-                    ],
-                  ),
-                  child: CircleAvatar(
-                    radius: 35.0,
-                    backgroundColor: Colors.white,
-                    child: Icon(
-                      Icons.list,
-                      size: 40.0,
-                      color: Colors.lightBlueAccent,
-                    ),
-                  ),
-                ),
+                _buildCustomMenuButton(),
                 SizedBox(
                   height: 10.0,
                 ),
@@ -66,14 +68,14 @@ class TaskScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(
-                      '${Provider.of<TaskProvider>(context).taskCount} tasks',
+                      '${Provider.of<MainModel>(context).taskCount} tasks',
                       style: TextStyle(
                         fontSize: 20.0,
                         color: Colors.white,
                       ),
                     ),
                     Text(
-                      'Remain: ${Provider.of<TaskProvider>(context).remainCount}',
+                      'Remain: ${Provider.of<MainModel>(context).remainCount}',
                       style: TextStyle(
                         fontSize: 20.0,
                         color: Colors.white,
@@ -93,5 +95,37 @@ class TaskScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class _buildCustomMenuButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          boxShadow: [
+            BoxShadow(
+                color: Colors.white30,
+                blurRadius: 2,
+                spreadRadius: 5,
+                offset: Offset(0.5, 1))
+          ],
+        ),
+        child: GestureDetector(
+          onTap: () {
+            print('Tapped');
+            Scaffold.of(context).openDrawer();
+          },
+          child: CircleAvatar(
+            radius: 35.0,
+            backgroundColor: Theme.of(context).primaryColor,
+            child: Icon(
+              Icons.list,
+              size: 40.0,
+              color: Theme.of(context).accentColor,
+            ),
+          ),
+        ));
   }
 }

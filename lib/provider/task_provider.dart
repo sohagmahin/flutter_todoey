@@ -5,21 +5,29 @@ import 'package:flutter_todoey/models/task.dart';
 import 'package:flutter_todoey/helpers/db_helpers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class TaskProvider extends ChangeNotifier {
+mixin TaskProvider on ChangeNotifier {
   List<Task> _taskList = [];
   bool _loadingStatus = true;
   int _remainCount = 0;
+  SharedPreferences pref;
 
   bool get isLoading => _loadingStatus;
   int get taskCount => _taskList.length;
   int get remainCount => _remainCount;
 
-  void initialCall(){
+  void initialCall() {
     retrieveRemainsCount();
     fetchAndSetData();
   }
+
+  Future initialPref() async {
+    if (pref == null) {
+      pref = await SharedPreferences.getInstance();
+    }
+  }
+
   void retrieveRemainsCount() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
+   await initialPref();
     if (pref.getInt('remainsCount') != null) {
       _remainCount = pref.getInt('remainsCount');
       notifyListeners();
@@ -27,9 +35,9 @@ class TaskProvider extends ChangeNotifier {
   }
 
   void _remainCounter(int value) async {
+    await initialPref();
     _remainCount = _remainCount + (value);
     notifyListeners();
-    SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setInt('remainsCount', _remainCount);
   }
 
@@ -85,6 +93,48 @@ class TaskProvider extends ChangeNotifier {
     }).toList();
 
     _loadingStatus = false;
+    notifyListeners();
+  }
+}
+
+mixin ThemeProvider on TaskProvider {
+  final String key = 'theme';
+  bool _darkTheme = false;
+
+  ThemeData dark() {
+    return ThemeData(
+        brightness: Brightness.dark,
+        accentColor: Colors.white30,
+        backgroundColor: Colors.white12,
+        buttonColor: Colors.grey,
+        splashColor: Colors.white30);
+  }
+
+  ThemeData light() {
+    return ThemeData(
+      brightness: Brightness.light,
+      primaryColor: Colors.indigo,
+      accentColor: Colors.greenAccent,
+      backgroundColor: Colors.white,
+      buttonColor: Colors.indigoAccent,
+      splashColor: Colors.white30,
+    );
+  }
+
+  bool get isDarkTheme => _darkTheme;
+  ThemeData get getTheme {
+    return _darkTheme ? dark() : light();
+  }
+
+  toggleTheme() {
+    _darkTheme = !_darkTheme;
+    pref.setBool(key, _darkTheme);
+    notifyListeners();
+  }
+
+  themeDataLoadFromPref() async {
+    await initialPref();
+    _darkTheme = pref.getBool(key) ?? false;
     notifyListeners();
   }
 }

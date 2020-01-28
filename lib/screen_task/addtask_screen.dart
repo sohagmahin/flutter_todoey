@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_todoey/provider/task_provider.dart';
+import 'package:flutter_todoey/provider/main.dart';
 import 'package:flutter_todoey/models/task.dart';
 import 'package:flutter_colorpicker/block_picker.dart';
 
@@ -47,23 +47,24 @@ class _AddTaskState extends State<AddTask> {
   }
 
   void _submitForm() {
-    if(newTaskTitle == null)
-      return;
+    if (newTaskTitle == null) return;
     Task newTask = Task(
         id: DateTime.now().toString(), name: newTaskTitle, color: currentColor);
-      Provider.of<TaskProvider>(context).addTask(newTask: newTask);
-      Navigator.pop(context);
-      print(newTaskTitle);
+    Provider.of<MainModel>(context).addTask(newTask: newTask);
+    Navigator.pop(context);
+    print(newTaskTitle);
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color(0xff757575),
+      color: Provider.of<MainModel>(context).isDarkTheme
+          ? Color(0xff151515)
+          : Color(0xff757575),
       child: Container(
         padding: const EdgeInsets.all(20.0),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).backgroundColor,
           shape: BoxShape.rectangle,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20.0),
@@ -93,7 +94,7 @@ class _AddTaskState extends State<AddTask> {
               height: 10.0,
             ),
             FlatButton(
-              color: Colors.lightBlueAccent,
+              color: Theme.of(context).buttonColor,
               child: Text(
                 'Choose Color',
                 style: TextStyle(color: Colors.white, fontSize: 20.0),
@@ -110,7 +111,7 @@ class _AddTaskState extends State<AddTask> {
                 'Add',
                 style: TextStyle(color: Colors.white, fontSize: 20.0),
               ),
-              color: Colors.lightBlueAccent,
+              color: Theme.of(context).buttonColor,
               onPressed: _submitForm,
             ),
           ],
