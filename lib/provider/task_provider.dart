@@ -5,7 +5,7 @@ import 'package:flutter_todoey/models/task.dart';
 import 'package:flutter_todoey/helpers/db_helpers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-mixin TaskProvider on ChangeNotifier {
+class TaskProvider with ChangeNotifier {
   List<Task> _taskList = [];
   bool _loadingStatus = true;
   int _remainCount = 0;
@@ -97,45 +97,3 @@ mixin TaskProvider on ChangeNotifier {
   }
 }
 
-mixin ThemeProvider on TaskProvider {
-  final String key = 'theme';
-  bool _darkTheme = false;
-
-  ThemeData dark() {
-    return ThemeData(
-        brightness: Brightness.dark,
-        accentColor: Colors.white30,
-        backgroundColor: Colors.white12,
-        buttonColor: Colors.grey,
-        splashColor: Colors.white30,
-    );
-  }
-
-  ThemeData light() {
-    return ThemeData(
-      brightness: Brightness.light,
-      primaryColor: Colors.indigo,
-      accentColor: Colors.greenAccent,
-      backgroundColor: Colors.white,
-      buttonColor: Colors.indigoAccent,
-      splashColor: Colors.white30,
-    );
-  }
-
-  bool get isDarkTheme => _darkTheme;
-  ThemeData get getTheme {
-    return _darkTheme ? dark() : light();
-  }
-
-  toggleTheme() {
-    _darkTheme = !_darkTheme;
-    pref.setBool(key, _darkTheme);
-    notifyListeners();
-  }
-
-  themeDataLoadFromPref() async {
-    await initialPref();
-    _darkTheme = pref.getBool(key) ?? false;
-    notifyListeners();
-  }
-}

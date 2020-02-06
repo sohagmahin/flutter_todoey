@@ -2,9 +2,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_todoey/widgets/task_list.dart';
 import 'package:flutter_todoey/screen_task/addtask_screen.dart';
-import 'package:flutter_todoey/provider/main.dart';
+import 'package:flutter_todoey/provider/task_provider.dart';
 import 'package:provider/provider.dart';
-import '../widgets/my_drawer.dart';
+import '../widgets/app_drawer.dart';
 
 class TaskScreen extends StatelessWidget {
   @override
@@ -12,7 +12,7 @@ class TaskScreen extends StatelessWidget {
     return WillPopScope(
       onWillPop: () => exitDialog(context),
       child: Scaffold(
-        drawer: MyDrawer(),
+        drawer: AppDrawer(),
         backgroundColor: Theme.of(context).primaryColor,
         floatingActionButton: FloatingActionButton(
           backgroundColor: Theme.of(context).primaryColor,
@@ -51,14 +51,14 @@ class TaskScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text(
-                        '${Provider.of<MainModel>(context).taskCount} tasks',
+                        '${Provider.of<TaskProvider>(context).taskCount} tasks',
                         style: TextStyle(
                           fontSize: 20.0,
                           color: Colors.white,
                         ),
                       ),
                       Text(
-                        'Remain: ${Provider.of<MainModel>(context).remainCount}',
+                        'Remain: ${Provider.of<TaskProvider>(context).remainCount}',
                         style: TextStyle(
                           fontSize: 20.0,
                           color: Colors.white,

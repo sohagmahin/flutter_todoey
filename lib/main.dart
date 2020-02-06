@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_todoey/provider/main.dart';
+import './provider/task_provider.dart';
+import './provider/theme_provider.dart';
 import 'screen_task/task_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
@@ -11,27 +12,25 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-    /*  return ChangeNotifierProvider<TaskProvider>(
-      create: (context) => TaskProvider(),
-      child:  MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: light(),
-        home: TaskScreen(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => TaskProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => ThemeProvider(),
+        ),
+      ],
+      child: Consumer<ThemeProvider>(
+        builder: (context, themeData, ch) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: themeData.getTheme,
+            home: ch,
+          );
+        },
+        child: TaskScreen(),
       ),
-    ); */
-
-    return
-      ChangeNotifierProvider<MainModel>(
-        create: (_) => MainModel(),
-        child: Consumer<MainModel>(
-    builder: (context,mainModel,ch){
-      return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: mainModel.getTheme,
-        home: TaskScreen(),
-      );
-    }),
-      );
+    );
   }
 }
-

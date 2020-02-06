@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_todoey/provider/main.dart';
+import '../provider/task_provider.dart';
+import '../provider/theme_provider.dart';
 import 'package:flutter_todoey/models/task.dart';
 import 'package:flutter_colorpicker/block_picker.dart';
 
@@ -53,7 +54,7 @@ class _AddTaskState extends State<AddTask> {
     if (newTaskTitle == null) return;
     Task newTask = Task(
         id: DateTime.now().toString(), name: newTaskTitle, color: currentColor);
-    Provider.of<MainModel>(context).addTask(newTask: newTask);
+    Provider.of<TaskProvider>(context).addTask(newTask: newTask);
     Navigator.pop(context);
     print(newTaskTitle);
   }
@@ -61,7 +62,7 @@ class _AddTaskState extends State<AddTask> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Provider.of<MainModel>(context).isDarkTheme
+      color: Provider.of<ThemeProvider>(context).isDarkTheme
           ? Color(0xff151515)
           : Color(0xff757575),
       child: Container(

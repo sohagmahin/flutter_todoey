@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../provider/main.dart';
+import '../provider/theme_provider.dart';
 
 class TaskTile extends StatelessWidget {
   final String taskTitle;
   final bool isChecked;
-
-  //Using two different checkBoxCallBack method but worked are both same.
-  //Coz i used for avoiding null error of ListTile checkbox.
-  //ListTile checkbox does't support null Function.
-  //final Function checkBoxCallBack;
   final Function checkBoxCallBack;
   final Color taskColor;
 
@@ -45,17 +40,16 @@ class TaskTile extends StatelessWidget {
         trailing: Checkbox(
           activeColor: Colors.lightBlueAccent,
           value: isChecked,
-//          No need this function because we attached onTap Function
-//          on whole ListTile to check the checkbox.
-          //  onChanged: (isChecked){
-          //  },
+//          onChanged: (_){},
         ),
       ),
     );
   }
 
+//changing the shadow color based on ThemeData
   Color shadowColor(BuildContext context) {
-    return Provider.of<MainModel>(context).isDarkTheme
+    print('inside shadow Color');
+    return Provider.of<ThemeProvider>(context, listen: false).isDarkTheme
         ? Colors.white12
         : Colors.black54;
   }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_todoey/provider/main.dart';
+import '../provider/task_provider.dart';
 import 'task_tile.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_todoey/models/task.dart';
@@ -48,18 +48,16 @@ class _TaskListState extends State<TaskList> {
     );
   }
 
-  Widget _buildDismissibleWidget(MainModel taskData, int index) {
+  Widget _buildDismissibleWidget(TaskProvider taskData, int index) {
     Task task = taskData.taskList[index];
     return Dismissible(
       direction: DismissDirection.endToStart,
+
       movementDuration: Duration(milliseconds: 800),
       background: _buildBackgroundWidget(),
-      key: Key(task.name),
-      onDismissed: (DismissDirection direction) {
-        if (direction == DismissDirection.endToStart) {
+      key: Key(task.id),
+      onDismissed: (direction) {
           taskData.deleteTask(task);
-          print('end to start');
-        }
       },
       child: TaskTile(
         taskTitle: task.name,
@@ -77,23 +75,25 @@ class _TaskListState extends State<TaskList> {
   @override
   void initState() {
     super.initState();
-    Provider.of<MainModel>(context, listen: false).themeDataLoadFromPref();
-    Provider.of<MainModel>(context, listen: false).initialCall();
+    Provider.of<TaskProvider>(context, listen: false).initialCall();
   }
 
   @override
   Widget build(BuildContext context) {
-    double _original_height = MediaQuery.of(context).size.height;
-    double _original_width = MediaQuery.of(context).size.width;
+
+    var screenSize = MediaQuery.of(context).size;
+    double _originalHeight = screenSize.height;
+    double _originalWidth = screenSize.width;
+
     return Container(
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
         decoration: _buildBoxDecoration(),
-        child: Consumer<MainModel>(
+        child: Consumer<TaskProvider>(
           child: Center(
             child: Image(
               image: AssetImage("assets/images/todo_icon.png"),
-              height: _original_height * 0.30,
-              width: _original_width * 0.30,
+              height: _originalHeight * 0.30,
+              width: _originalWidth * 0.30,
             ),
           ),
           builder: (context, taskData, ch) {
