@@ -35,6 +35,9 @@ class TaskTile extends StatelessWidget {
             decoration: isChecked ? TextDecoration.lineThrough : null,
             fontSize: 25.0,
             fontFamily: 'Oswald',
+            fontStyle: isChecked? FontStyle.italic : FontStyle.normal,
+            fontWeight: isChecked? FontWeight.bold: null,
+            color: Colors.black
           ),
         ),
         trailing: Checkbox(
