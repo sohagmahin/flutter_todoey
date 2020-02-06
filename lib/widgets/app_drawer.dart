@@ -51,6 +51,7 @@ class AppDrawer extends StatelessWidget {
                       bottomLeft: Radius.circular(10.0),
                       bottomRight: Radius.circular(10.0))),
             ),
+            Divider(),
             Consumer<ThemeProvider>(
               builder: (context, mainModel, ch) {
                 return SwitchListTile(
@@ -63,6 +64,7 @@ class AppDrawer extends StatelessWidget {
               },
               child: Text('Dark Mode'),
             ),
+            Divider(),
             //SizedBox(height: 2,child: Container(color:Colors.grey),),
             ListTile(
               leading: Icon(Icons.person_outline),
@@ -79,6 +81,7 @@ class AppDrawer extends StatelessWidget {
                     });
               },
             ),
+            Divider(),
           ],
         ),
       ),
