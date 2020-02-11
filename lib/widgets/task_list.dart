@@ -90,10 +90,12 @@ class _TaskListState extends State<TaskList> {
         decoration: _buildBoxDecoration(),
         child: Consumer<TaskProvider>(
           child: Center(
-            child: Image(
-              image: AssetImage("assets/images/todo_icon.png"),
+            child: Container(
               height: _originalHeight * 0.30,
               width: _originalWidth * 0.30,
+              child: Image(
+                image: AssetImage("assets/images/todo_icon.png"),
+              ),
             ),
           ),
           builder: (context, taskData, ch) {

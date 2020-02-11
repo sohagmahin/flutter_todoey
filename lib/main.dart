@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_todoey/screen_task/splash_screen.dart';
 import './provider/task_provider.dart';
 import './provider/theme_provider.dart';
 import 'screen_task/task_screen.dart';
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
             home: ch,
           );
         },
-        child: TaskScreen(),
+        child: SplashScreen(),
       ),
     );
   }
