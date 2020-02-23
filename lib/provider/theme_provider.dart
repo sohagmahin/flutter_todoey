@@ -23,6 +23,7 @@ class ThemeProvider with ChangeNotifier {
       backgroundColor: Colors.white12,
       buttonColor: Colors.grey,
       splashColor: Colors.white30,
+      fontFamily: 'Roboto'
     );
   }
 
@@ -34,6 +35,7 @@ class ThemeProvider with ChangeNotifier {
       backgroundColor: Colors.white,
       buttonColor: Colors.indigoAccent,
       splashColor: Colors.white30,
+      fontFamily: 'Roboto'
     );
   }
 

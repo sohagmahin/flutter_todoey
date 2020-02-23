@@ -82,8 +82,8 @@ class TaskProvider with ChangeNotifier {
   }
 
   Future<void> fetchAndSetData() async {
-    final databaselist = await DBhelpers.getData('task_list');
-    _taskList = databaselist.map((task) {
+    final fetchedTaskList = await DBhelpers.getData('task_list');
+    _taskList = fetchedTaskList.map((task) {
       return Task(
         id: task['id'],
         name: task['name'],
