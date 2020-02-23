@@ -42,7 +42,7 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.lightBlueAccent,
+      backgroundColor: Colors.indigo,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -60,11 +60,11 @@ class _SplashScreenState extends State<SplashScreen>
           ),
           Center(
               child: TyperAnimatedTextKit(
-            text: ['Daily Task!'],
+            text: ['Today\'s Task!'],
             speed: Duration(milliseconds: 100),
             isRepeatingAnimation: false,
             textStyle: TextStyle(
-                fontFamily: 'OdibeeSans',
+                fontFamily: 'Roboto',
                 fontSize: 50.0,
                 color: Colors.limeAccent),
           )),
