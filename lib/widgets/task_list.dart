@@ -12,18 +12,18 @@ class TaskList extends StatefulWidget {
 }
 
 class _TaskListState extends State<TaskList> {
-  Decoration _buildBoxDecoration() {
+  Decoration _buildBoxDecoration(double height) {
     return BoxDecoration(
       boxShadow: [
         BoxShadow(
             color: Colors.black54,
             blurRadius: 2,
-            spreadRadius: 7,
+            spreadRadius: 5,
             offset: Offset(5, 1))
       ],
       shape: BoxShape.rectangle,
       borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(50.0),
+        topLeft: Radius.circular(height*0.05),
         //topRight: Radius.circular(30.0)
       ),
       color: Theme.of(context).backgroundColor,
@@ -52,12 +52,11 @@ class _TaskListState extends State<TaskList> {
     Task task = taskData.taskList[index];
     return Dismissible(
       direction: DismissDirection.endToStart,
-
       movementDuration: Duration(milliseconds: 800),
       background: _buildBackgroundWidget(),
       key: Key(task.id),
       onDismissed: (direction) {
-          taskData.deleteTask(task);
+        taskData.deleteTask(task);
       },
       child: TaskTile(
         taskTitle: task.name,
@@ -80,38 +79,41 @@ class _TaskListState extends State<TaskList> {
 
   @override
   Widget build(BuildContext context) {
-
     var screenSize = MediaQuery.of(context).size;
     double _originalHeight = screenSize.height;
     double _originalWidth = screenSize.width;
 
     return Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-        decoration: _buildBoxDecoration(),
-        child: Consumer<TaskProvider>(
-          child: Center(
-            child: Container(
-              height: _originalHeight * 0.30,
-              width: _originalWidth * 0.30,
-              child: Image(
-                image: AssetImage("assets/images/todo_icon.png"),
-              ),
+      padding: EdgeInsets.symmetric(
+        horizontal: _originalWidth * 0.04,
+        vertical: _originalHeight * 0.025,
+      ),
+      decoration: _buildBoxDecoration(_originalHeight),
+      child: Consumer<TaskProvider>(
+        child: Center(
+          child: Container(
+            height: _originalHeight * 0.30,
+            width: _originalWidth * 0.30,
+            child: Image(
+              image: AssetImage("assets/images/todo_icon.png"),
             ),
           ),
-          builder: (context, taskData, ch) {
-            return taskData.isLoading
-                ? Center(
-                    child: CircularProgressIndicator(),
-                  )
-                : taskData.taskList.length == 0
-                    ? ch
-                    : ListView.builder(
-                        itemCount: taskData.taskCount,
-                        itemBuilder: (context, index) {
-                          return _buildDismissibleWidget(taskData, index);
-                        },
-                      );
-          },
-        ));
+        ),
+        builder: (context, taskData, ch) {
+          return taskData.isLoading
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : taskData.taskList.length == 0
+                  ? ch
+                  : ListView.builder(
+                      itemCount: taskData.taskCount,
+                      itemBuilder: (context, index) {
+                        return _buildDismissibleWidget(taskData, index);
+                      },
+                    );
+        },
+      ),
+    );
   }
 }

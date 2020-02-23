@@ -13,6 +13,9 @@ class TaskTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    Size size = MediaQuery.of(context).size;
+    double _originalHeight = size.height;
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 6.0),
       decoration: BoxDecoration(
@@ -33,7 +36,7 @@ class TaskTile extends StatelessWidget {
           taskTitle,
           style: TextStyle(
             decoration: isChecked ? TextDecoration.lineThrough : null,
-            fontSize: 25.0,
+            fontSize: _originalHeight*0.028,
             fontFamily: 'Oswald',
             fontStyle: isChecked? FontStyle.italic : FontStyle.normal,
             fontWeight: isChecked? FontWeight.bold: null,
