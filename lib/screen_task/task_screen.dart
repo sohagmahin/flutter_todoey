@@ -9,6 +9,9 @@ import '../widgets/app_drawer.dart';
 class TaskScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    double originalHeight = size.height;
+    double originalWidth = size.width;
     return WillPopScope(
       onWillPop: () => exitDialog(context),
       child: Scaffold(
@@ -27,59 +30,64 @@ class TaskScreen extends StatelessWidget {
             builder: (context) => AddTask(),
           ),
         ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.only(
-                  top: 60.0, left: 30.0, right: 30.0, bottom: 20.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  _buildCustomMenuButton(),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  Text(
-                    'Todoey',
-                    style: TextStyle(
-                        fontSize: 35.0,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        '${Provider.of<TaskProvider>(context).taskCount} tasks',
-                        style: TextStyle(
-                          fontSize: 20.0,
+        body: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.only(
+                    top: originalHeight * 0.04,
+                    left: originalWidth * 0.06,
+                    right: originalWidth * 0.06),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    _buildCustomMenuButton(),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    Text(
+                      'Todoey',
+                      style: TextStyle(
+                          fontSize: originalHeight * 0.050,
                           color: Colors.white,
+                          fontWeight: FontWeight.w700),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
+                          '${Provider.of<TaskProvider>(context).taskCount} tasks',
+                          style: TextStyle(
+                            fontSize: originalHeight * 0.03,
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
-                      Text(
-                        'Remain: ${Provider.of<TaskProvider>(context).remainCount}',
-                        style: TextStyle(
-                          fontSize: 20.0,
-                          color: Colors.white,
+                        Text(
+                          'Remain: ${Provider.of<TaskProvider>(context).remainCount}',
+                          style: TextStyle(
+                            fontSize: originalHeight * 0.03,
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                ],
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                  ],
+                ),
               ),
-            ),
-            Expanded(
-              child: TaskList(),
-            )
-          ],
+              Expanded(
+                child: TaskList(),
+              )
+            ],
+          ),
         ),
       ),
     );
   }
+
   Future<bool> exitDialog(BuildContext context) {
     return showDialog(
       context: context,

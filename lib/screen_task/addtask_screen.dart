@@ -5,6 +5,10 @@ import '../provider/theme_provider.dart';
 import 'package:flutter_todoey/models/task.dart';
 import 'package:flutter_colorpicker/block_picker.dart';
 
+ final roundedShape = RoundedRectangleBorder(
+  borderRadius: BorderRadius.circular(30),
+);
+
 class AddTask extends StatefulWidget {
   @override
   _AddTaskState createState() => _AddTaskState();
@@ -61,12 +65,19 @@ class _AddTaskState extends State<AddTask> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    double originalHeight = size.height;
+    double originalWidth = size.width;
+
     return Container(
       color: Provider.of<ThemeProvider>(context).isDarkTheme
           ? Color(0xff151515)
           : Color(0xff757575),
       child: Container(
-        padding: const EdgeInsets.all(20.0),
+        padding: EdgeInsets.only(
+            top: originalHeight * 0.020,
+            left: originalWidth * 0.020,
+            right: originalWidth * 0.020),
         decoration: BoxDecoration(
           color: Theme.of(context).backgroundColor,
           shape: BoxShape.rectangle,
@@ -82,7 +93,7 @@ class _AddTaskState extends State<AddTask> {
               'Add Task',
               textAlign: TextAlign.center,
               style: TextStyle(
-                  fontSize: 30.0,
+                  fontSize: 20.0,
                   fontWeight: FontWeight.bold,
                   color: Colors.lightBlueAccent),
             ),
@@ -97,8 +108,10 @@ class _AddTaskState extends State<AddTask> {
             SizedBox(
               height: 10.0,
             ),
-            FlatButton(
+            MaterialButton(
               color: Theme.of(context).buttonColor,
+              elevation: 10,
+              shape: roundedShape,
               child: Text(
                 'Choose Color',
                 style: TextStyle(color: Colors.white, fontSize: 20.0),
@@ -110,9 +123,10 @@ class _AddTaskState extends State<AddTask> {
             SizedBox(
               height: 10.0,
             ),
-            FlatButton(
+            MaterialButton(
+              shape: roundedShape,
               child: Text(
-                'Add',
+                'Add Task',
                 style: TextStyle(color: Colors.white, fontSize: 20.0),
               ),
               color: Theme.of(context).buttonColor,

@@ -9,10 +9,24 @@ class SplashScreen extends StatefulWidget {
   _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends State<SplashScreen>
+    with SingleTickerProviderStateMixin {
+  AnimationController controller;
+  Animation animation;
   @override
   void initState() {
     super.initState();
+
+    controller =
+        AnimationController(vsync: this, duration: Duration(seconds: 1));
+    animation = CurvedAnimation(parent: controller, curve: Curves.decelerate);
+
+    controller.forward();
+
+    controller.addListener(() {
+      setState(() {});
+    });
+
     Timer(Duration(seconds: 2), () {
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => TaskScreen()));
@@ -22,6 +36,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void dispose() {
     super.dispose();
+    controller.dispose();
   }
 
   @override
@@ -33,7 +48,7 @@ class _SplashScreenState extends State<SplashScreen> {
         children: <Widget>[
           Center(
             child: Container(
-              height: 200,
+              height: animation.value*150,
               child: Image(
                 image: AssetImage('assets/images/todo_icon.png'),
                 fit: BoxFit.cover,
@@ -49,7 +64,7 @@ class _SplashScreenState extends State<SplashScreen> {
             speed: Duration(milliseconds: 100),
             isRepeatingAnimation: false,
             textStyle: TextStyle(
-              fontFamily: 'OdibeeSans',
+                fontFamily: 'OdibeeSans',
                 fontSize: 50.0,
                 color: Colors.limeAccent),
           )),
