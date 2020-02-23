@@ -6,7 +6,6 @@ class CustomMenuButton extends StatelessWidget {
 
     Size size = MediaQuery.of(context).size;
     double originalHeight = size.height;
-    double originalWidth = size.width;
 
     return Container(
       decoration: BoxDecoration(
