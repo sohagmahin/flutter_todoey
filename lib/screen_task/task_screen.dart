@@ -48,7 +48,7 @@ class TaskScreen extends StatelessWidget {
                       height: 10.0,
                     ),
                     Text(
-                      'Todoey',
+                      'Today\'s Task',
                       style: TextStyle(
                           fontSize: originalHeight * 0.050,
                           color: Colors.white,
