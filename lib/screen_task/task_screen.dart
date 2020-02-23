@@ -1,10 +1,11 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_todoey/widgets/custom_menu_button.dart';
 import 'package:flutter_todoey/widgets/task_list.dart';
 import 'package:flutter_todoey/screen_task/addtask_screen.dart';
 import 'package:flutter_todoey/provider/task_provider.dart';
 import 'package:provider/provider.dart';
-import '../widgets/app_drawer.dart';
+import 'package:flutter_todoey/widgets/app_drawer.dart';
 
 class TaskScreen extends StatelessWidget {
   @override
@@ -42,7 +43,7 @@ class TaskScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    _buildCustomMenuButton(),
+                    CustomMenuButton(),
                     SizedBox(
                       height: 10.0,
                     ),
@@ -108,35 +109,4 @@ class TaskScreen extends StatelessWidget {
   }
 }
 
-class _buildCustomMenuButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        boxShadow: [
-          BoxShadow(
-              color: Colors.white30,
-              blurRadius: 2,
-              spreadRadius: 5,
-              offset: Offset(0.5, 1))
-        ],
-      ),
-      child: GestureDetector(
-        onTap: () {
-          print('Tapped');
-          Scaffold.of(context).openDrawer();
-        },
-        child: CircleAvatar(
-          radius: 35.0,
-          backgroundColor: Theme.of(context).primaryColor,
-          child: Icon(
-            Icons.list,
-            size: 40.0,
-            color: Theme.of(context).accentColor,
-          ),
-        ),
-      ),
-    );
-  }
-}
+
