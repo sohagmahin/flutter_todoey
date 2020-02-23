@@ -37,6 +37,5 @@ class DBhelpers {
     final db = await DBhelpers.database();
     final updateInfo = await db.update(tableName, updateTask,
         where: 'id = ?', whereArgs: [updateTask['id']]);
-        print(updateInfo);
   }
 }

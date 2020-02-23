@@ -60,7 +60,6 @@ class _AddTaskState extends State<AddTask> {
         id: DateTime.now().toString(), name: newTaskTitle, color: currentColor);
     Provider.of<TaskProvider>(context).addTask(newTask: newTask);
     Navigator.pop(context);
-    print(newTaskTitle);
   }
 
   @override

@@ -54,7 +54,6 @@ class TaskTile extends StatelessWidget {
 
 //changing the shadow color based on ThemeData
   Color shadowColor(BuildContext context) {
-    print('inside shadow Color');
     return Provider.of<ThemeProvider>(context, listen: false).isDarkTheme
         ? Colors.white12
         : Colors.black54;

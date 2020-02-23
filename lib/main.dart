@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_todoey/screen_task/splash_screen.dart';
 import './provider/task_provider.dart';
 import './provider/theme_provider.dart';
-import 'screen_task/task_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
 

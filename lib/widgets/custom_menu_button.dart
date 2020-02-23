@@ -20,7 +20,6 @@ class CustomMenuButton extends StatelessWidget {
       ),
       child: GestureDetector(
         onTap: () {
-          print('Tapped');
           Scaffold.of(context).openDrawer();
         },
         child: CircleAvatar(
