@@ -60,12 +60,12 @@ class _SplashScreenState extends State<SplashScreen>
           ),
           Center(
               child: TyperAnimatedTextKit(
-            text: ['Today\'s Task!'],
+            text: ['Flutter Todoey'],
             speed: Duration(milliseconds: 100),
             isRepeatingAnimation: false,
             textStyle: TextStyle(
                 fontFamily: 'Roboto',
-                fontSize: 50.0,
+                fontSize: 40.0,
                 color: Colors.limeAccent),
           )),
         ],
